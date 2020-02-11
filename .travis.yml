@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.6"
+install:
+  - pip install flake8 yapf isort
+before_script:
+  - flake8
+  - isort -rc --diff .
+  - yapf -r -d .
