@@ -60,7 +60,7 @@ class Discriminator(nn.Module):
             nn.BatchNorm2d(n_features * 8),
             nn.LeakyReLU(0.2, inplace=True),
             # state size. (ndf*8) x 4 x 4
-            nn.Conv2d(n_features * 8, 1, 4, 1, 0, bias=False)
+            nn.Conv2d(n_features * 8, 1, 4, 1, 0, bias=False),
         )
         self.apply(init_weights)
 
@@ -72,8 +72,8 @@ class Discriminator(nn.Module):
 class DCGAN(nn.ModuleDict):
     def __init__(self, n_latent, n_g_features, n_d_features, n_channels):
         super().__init__()
-        self['D'] = Discriminator(n_d_features, n_channels)
-        self['G'] = Generator(n_latent, n_g_features, n_channels)
+        self["D"] = Discriminator(n_d_features, n_channels)
+        self["G"] = Generator(n_latent, n_g_features, n_channels)
 
     def forward(self, x, mode):
         return self[mode](x)

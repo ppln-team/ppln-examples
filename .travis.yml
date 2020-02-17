@@ -1,9 +1,9 @@
 language: python
 python:
-  - "3.6"
+  - "3.7"
 install:
-  - pip install flake8 yapf isort
+  - pip install flake8 black==19.3b0 isort
 before_script:
   - flake8
   - isort -rc --diff .
-  - yapf -r -d .
+  - black --config=black.toml --check .

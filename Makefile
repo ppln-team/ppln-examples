@@ -1,5 +1,5 @@
-APP_NAME=amirassov/ppln
-CONTAINER_NAME=ppln
+APP_NAME=amirassov/ppln-examples
+CONTAINER_NAME=ppln-examples
 
 help: ## This help.
 	@awk 'BEGIN (FS = ":.*?## ") /^[a-zA-Z_-]+:.*?## / (printf "\033[36m%-30s\033[0m %s\n", $$1, $$2)' $(MAKEFILE_LIST)
@@ -7,7 +7,7 @@ help: ## This help.
 build:  ## Build the container
 	nvidia-docker build -t $(APP_NAME) .
 
-run: ## Run container in omen
+run: ## Run container
 	nvidia-docker run \
 		-itd \
 		--ipc=host \
@@ -21,21 +21,5 @@ exec: ## Run a bash in a running container
 stop: ## Stop and remove a running container
 	docker stop $(CONTAINER_NAME); docker rm $(CONTAINER_NAME)
 
-clean:
-	[ -e ppln.egg-info ] && rm -r ppln.egg-info ||:
-	[ -e build ] && rm -r build ||:
-	[ -e .eggs ] && rm -r .eggs ||:
-	[ -e dist ] && rm -r dist ||:
-	[ -e .pytest_cache ] && rm -r .pytest_cache ||:
-	python setup.py clean
-
-test:
-	python setup.py test
-
-install:
-	python setup.py install
-
 format:
-	unify --in-place --recursive .
-	yapf --in-place --recursive .
-	isort --recursive .
+	pre-commit run --all-files

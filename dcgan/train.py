@@ -9,9 +9,9 @@ from ppln.utils.misc import init_dist
 
 
 def parse_args():
-    parser = ArgumentParser(description='Train CIFAR-10 classification')
-    parser.add_argument('config', help='train config file path')
-    parser.add_argument('--local_rank', type=int, default=0)
+    parser = ArgumentParser(description="Train CIFAR-10 classification")
+    parser.add_argument("config", help="train config file path")
+    parser.add_argument("--local_rank", type=int, default=0)
     return parser.parse_args()
 
 
@@ -27,11 +27,11 @@ def main():
         schedulers=experiment.schedulers,
         batch_processor=GANBatchProcessor(cfg),
         hooks=experiment.hooks,
-        work_dir=experiment.work_dir
+        work_dir=experiment.work_dir,
     )
 
-    runner.run(data_loaders={'train': experiment.dataloader('train')}, max_epochs=cfg.max_epochs)
+    runner.run(data_loaders={"train": experiment.dataloader("train")}, max_epochs=cfg.max_epochs)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

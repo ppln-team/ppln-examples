@@ -11,15 +11,15 @@ class GANExperiment(BaseExperiment):
     @property
     def schedulers(self):
         return {
-            'D': make_scheduler(self.optimizers['D'], self.cfg.scheduler.D),
-            'G': make_scheduler(self.optimizers['G'], self.cfg.scheduler.G)
+            "D": make_scheduler(self.optimizers["D"], self.cfg.scheduler.D),
+            "G": make_scheduler(self.optimizers["G"], self.cfg.scheduler.G),
         }
 
     @cached_property
     def optimizers(self):
         return {
-            'D': make_optimizer(self.model['D'], self.cfg.optimizer.D),
-            'G': make_optimizer(self.model['G'], self.cfg.optimizer.G)
+            "D": make_optimizer(self.model["D"], self.cfg.optimizer.D),
+            "G": make_optimizer(self.model["G"], self.cfg.optimizer.G),
         }
 
     def dataset(self, mode):
@@ -37,4 +37,4 @@ class GANExperiment(BaseExperiment):
 
     def sampler(self, mode, dataset):
         rank, world_size = get_dist_info()
-        return DistributedSampler(dataset, num_replicas=world_size, rank=rank, shuffle=mode == 'train')
+        return DistributedSampler(dataset, num_replicas=world_size, rank=rank, shuffle=mode == "train")
